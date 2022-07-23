@@ -11,8 +11,9 @@ const (
 	DefaultPort = 0
 )
 
-func Send(ip string, port int, packet *[]byte) error {
-	bcastAddr := fmt.Sprintf("%s:%d", ip, port)
+// Sends bytes over udp to provided broadcast address
+func Send(host string, port int, packet *[]byte) error {
+	bcastAddr := fmt.Sprintf("%s:%d", host, port)
 	udpAddr, err := net.ResolveUDPAddr("udp4", bcastAddr)
 	if err != nil {
 		return err

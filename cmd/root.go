@@ -5,9 +5,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "wol",
-	Short: "Wake On LAN",
-	Long:  `Wake On LAN cli tool for sending magic packet to target MAC.`,
+	Use:  "wol",
+	Long: "Simple Wake On LAN CLI tool.",
 }
 
 func Execute() {

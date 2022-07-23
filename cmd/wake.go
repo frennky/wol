@@ -9,22 +9,21 @@ import (
 )
 
 var mac string
-var ip string
+var host string
 var port int
 
 var wakeCmd = &cobra.Command{
-	Use:   "wake",
-	Short: "Wake On LAN",
-	Long:  `Sends magic packet to target MAC.`,
-	Run:   runWakeCmd,
+	Use:  "wake",
+	Long: "Sends magic packet to target MAC.",
+	Run:  runWakeCmd,
 }
 
 func init() {
 	rootCmd.AddCommand(wakeCmd)
-	wakeCmd.Flags().StringVarP(&mac, "mac", "m", "", "Target MAC Address (required)")
+	wakeCmd.Flags().StringVarP(&mac, "mac", "", "", "Target MAC Address (required)")
 	wakeCmd.MarkFlagRequired("mac")
-	wakeCmd.PersistentFlags().StringVarP(&ip, "ip", "i", wol.DefaultBroadcastIPAddress, "Broadcast IP Address (optional)")
-	wakeCmd.PersistentFlags().IntVarP(&port, "port", "p", wol.DefaultPort, "Broadcast Port (optional)")
+	wakeCmd.Flags().StringVarP(&host, "host", "", wol.DefaultBroadcastIPAddress, "Broadcast IP Address (optional)")
+	wakeCmd.Flags().IntVarP(&port, "port", "", wol.DefaultPort, "Broadcast Port (optional)")
 }
 
 func runWakeCmd(cmd *cobra.Command, args []string) {
@@ -34,7 +33,7 @@ func runWakeCmd(cmd *cobra.Command, args []string) {
 	}
 
 	log.Printf("Sending magic packet to MAC %s", mac)
-	if err := wol.Send(ip, port, packet); err != nil {
+	if err := wol.Send(host, port, packet); err != nil {
 		log.Fatalf("Failed to send magic packet: %s", err.Error())
 	}
 }

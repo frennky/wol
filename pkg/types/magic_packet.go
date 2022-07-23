@@ -14,18 +14,18 @@ func NewMagicPacket(mac string) (*[]byte, error) {
 		packet = append(packet, 0xFF)
 	}
 
-	target, err := NewMacAddress(mac)
+	m, err := NewMacAddress(mac)
 	if err != nil {
 		return nil, err
 	}
 
 	// 16 repetitions of target MAC
-	body, err := target.Bytes()
+	b, err := m.Bytes()
 	if err != nil {
 		return nil, err
 	}
 	for i := 0; i < 16; i++ {
-		packet = append(packet, body...)
+		packet = append(packet, b...)
 	}
 
 	return &packet, nil
