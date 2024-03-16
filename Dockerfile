@@ -1,4 +1,4 @@
-FROM golang:1.18.4 as build
+FROM golang:1.22.1 as build
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 COPY . /workspace
 WORKDIR /workspace
