@@ -21,7 +21,7 @@ var wakeCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(wakeCmd)
 	wakeCmd.Flags().StringVarP(&mac, "mac", "", "", "Target MAC Address (required)")
-	wakeCmd.MarkFlagRequired("mac")
+	_ = wakeCmd.MarkFlagRequired("mac")
 	wakeCmd.Flags().StringVarP(&host, "host", "", wol.DefaultBroadcastIPAddress, "Broadcast IP Address (optional)")
 	wakeCmd.Flags().IntVarP(&port, "port", "", wol.DefaultPort, "Broadcast Port (optional)")
 }
